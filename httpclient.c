@@ -93,13 +93,13 @@ int httpParse(httpclient_t ct)
 	char *_tail = strchr(_head+2,'"');
 	unsigned char nonce_len=_tail-_head-1;
 	
-	ct->auth->nonce = (char *) calloc(1,nonce_len);
+	ct->auth->nonce = (char *) calloc(1,nonce_len+1);
 	strncpy(ct->auth->nonce,_head+1,nonce_len);
 	
 	_head = strchr(_realm,'"');
 	_tail = strchr(_head+2,'"');
 	
-	ct->auth->realm = (char *) calloc(1,_tail-_head-1);
+	ct->auth->realm = (char *) calloc(1,_tail-_head-1+1);
 	strncpy(ct->auth->realm,_head+1,_tail-_head-1);
 	
 	if(_conn == NULL ) return -1;
